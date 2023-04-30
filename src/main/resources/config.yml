@@ -11,6 +11,7 @@ player-can-break: false # Player without nautiluslobby.break permission cannot b
 player-can-place: false # Player without nautiluslobby.place permission cannot place blocks
 player-can-heal: false # Player without nautiluslobby.heal permission cannot heal
 player-drop-item: false # Player without nautiluslobby.drop permission cannot break drop
+player-interact: false # Player without nautiluslobby.interact permission cannot interact with doors, chest, ...
 player-take-damage: false
 mobs-spawn: false
 weather-cycle: false

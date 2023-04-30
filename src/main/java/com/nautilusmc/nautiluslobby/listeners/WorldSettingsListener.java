@@ -10,6 +10,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 import java.util.Objects;
@@ -56,6 +57,19 @@ public class WorldSettingsListener implements Listener {
             }
         }
     }
+
+
+    // Disable Interactions
+    @EventHandler
+    public void onInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (!main.getConfig().getBoolean("player-interact")) {
+            if (!player.hasPermission("nautiluslobby.interact")) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
 
     // Disable damage
     @EventHandler
