@@ -1,0 +1,20 @@
+# Custom message
+cannot-break-block: 'You can not break block here !'
+cannot-place-block: 'You can not place block here !'
+cannot-drop-item: 'You can not drop item on the ground !'
+heal-is-disabled: 'Heal is disabled'
+healed-message: 'You have been healed food and life !'
+permission-denied: 'You do not have permission to do that'
+
+# World settings
+player-can-break: false # Player without nautiluslobby.break permission cannot break blocks
+player-can-place: false # Player without nautiluslobby.place permission cannot place blocks
+player-can-heal: false # Player without nautiluslobby.heal permission cannot heal
+player-drop-item: false # Player without nautiluslobby.drop permission cannot break drop
+player-take-damage: false
+mobs-spawn: false
+weather-cycle: false
+food-decrease: false
+
+# Other
+pickaxe-command: /server hub # Don't forget to add '/' before the command

@@ -1,0 +1,11 @@
+name: NautilusLobby
+version: '${project.version}'
+main: com.nautilusmc.nautiluslobby.NautilusLobbyMain
+api-version: 1.19
+authors: [ NautilusMC ]
+description: The NautilusMC lobby management plugin
+commands:
+  heal:
+    description: Heal the player
+  server:
+    description: Open server menu
