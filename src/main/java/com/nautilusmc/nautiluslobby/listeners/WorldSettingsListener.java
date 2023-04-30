@@ -58,7 +58,6 @@ public class WorldSettingsListener implements Listener {
         }
     }
 
-
     // Disable Interactions
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
@@ -69,7 +68,6 @@ public class WorldSettingsListener implements Listener {
             }
         }
     }
-
 
     // Disable damage
     @EventHandler
