@@ -9,3 +9,5 @@ commands:
     description: Heal the player
   server:
     description: Open server menu
+  setlobbyspawn:
+    description: Set the spawn point

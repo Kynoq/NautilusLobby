@@ -2,29 +2,51 @@ package com.nautilusmc.nautiluslobby.listeners;
 
 import com.nautilusmc.nautiluslobby.NautilusLobbyMain;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 
 public class OnJoinListener implements Listener {
 
+    private final JavaPlugin main;
+    private final double teleportX;
+    private final double teleportY;
+    private final double teleportZ;
+    private final float teleportPitch;
+    private final float teleportYaw;
 
-    public OnJoinListener(NautilusLobbyMain nautilusLobbyMain) {
+    public OnJoinListener(NautilusLobbyMain main) {
+        FileConfiguration config = main.getConfig();
+
+        this.main = main;
+        this.teleportX = config.getDouble("teleport-location.x");
+        this.teleportY = config.getDouble("teleport-location.y");
+        this.teleportZ = config.getDouble("teleport-location.z");
+        this.teleportPitch = (float) config.getDouble("teleport-location.pitch");
+        this.teleportYaw = (float) config.getDouble("teleport-location.yaw");
 
     }
 
-
-    // On Join message
+    // On Join Events
     @EventHandler
     public void onJoinEvent(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
+        FileConfiguration config = main.getConfig();
+        boolean forceSpawnOnConnect = config.getBoolean("force-spawn-on-connect");
+
+        if (forceSpawnOnConnect) {
+            Location teleportLocation = new Location(player.getWorld(), this.teleportX, this.teleportY, this.teleportZ, this.teleportYaw, this.teleportPitch);
+            player.teleport(teleportLocation);
+        }
 
         event.setJoinMessage(ChatColor.DARK_GRAY + "[" + ChatColor.GREEN + ChatColor.BOLD + "✔" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + player.getName());
     }
@@ -53,6 +75,7 @@ public class OnJoinListener implements Listener {
         player.getInventory().setItem(8, visbilityitem);
         player.getInventory().setItem(4, compass);
     }
+
 
 
 }
