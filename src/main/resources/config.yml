@@ -1,12 +1,3 @@
-# Lobby spawn
-teleport-location:
-  world: world
-  x: 0.0
-  y: 70.0
-  z: 0.0
-  pitch: 0.0
-  yaw: 0.0
-
 # World settings
 player-can-break: false # Player without nautiluslobby.break permission cannot break blocks
 player-can-place: false # Player without nautiluslobby.place permission cannot place blocks
@@ -20,16 +11,49 @@ food-decrease: false
 force-spawn-on-connect: true
 
 # Other
-pickaxe-command: /server hub # Don't forget to add '/' before the command
 minimum_y_coordinate: 0.0 # Height to which the player will be teleported when falling into the void
 
 # Message
-cannot-break-block: "You can not break block here !"
-cannot-place-block: "You can not place block here !"
-cannot-drop-item: "You can not drop item on the ground !"
-heal-is-disabled: "Heal is disabled"
-healed-message: "You have been healed food and life !"
-permission-denied: "You do not have permission to do that"
-lobby-spawn-set: "Lobby spawn point has been saved. Please reboot the server to save changes !"
+cannot-break-block: "&cYou can not break block here !"
+cannot-place-block: "&cYou can not place block here !"
+cannot-drop-item: "&cYou can not drop item on the ground !"
+heal-is-disabled: "&cHeal is disabled"
+healed-message: "&aYou have been healed food and life !"
+permission-denied: "&cYou do not have permission to do that"
+lobby-spawn-set: "&aLobby spawn point has been saved.\n&cPlease reboot the server to apply changes !"
 
+menu:
+  title: "Connect to server"
+  server-connect-item: DIAMOND_PICKAXE
+  fill-item: GRAY_STAINED_GLASS_PANE
+  server-selector-item: "&6MyServer &8[1.19.4]"
+  server-selector-lore:
+    - "&eJoin us now !"
+    - ""
+    - "&7▪ Towny"
+    - "&7▪ Shop"
+    - "&7▪ Dungeons"
+    - ""
+    - "&e↪ Click to connect !"
+    - ""
+    - "&7www.myserver.com"
+  server-selector-command: /server hub # Don't forget to add '/' before the command
 
+inventory:
+  compass-display-name: "&eConnect to server &8(Right-Click)"
+  compass-lore:
+    - ""
+    - "&7Right-click to open the server menu"
+  visibility-item-display-name: "&ePlayer visibility &7> &aVisible"
+  visibility-item-lore:
+    - ""
+    - "&7Right-click to toggle player visibility"
+
+# Lobby spawn
+teleport-location:
+  world: world
+  x: 0.0
+  y: 70.0
+  z: 0.0
+  pitch: 0.0
+  yaw: 0.0

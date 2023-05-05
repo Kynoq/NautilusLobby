@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Objects;
 
@@ -19,22 +20,29 @@ public class ServerSelectorListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
+        Player player = (Player) e.getWhoClicked();
+        ItemStack clickedItem = e.getCurrentItem();
 
-        // WARNING : If you change this line, also change in MenuCommand !
-        if (ChatColor.translateAlternateColorCodes('&', e.getView().getTitle()).equals(ChatColor.DARK_GRAY + "Connexion à VanillaCraft")
-                && e.getCurrentItem() != null) {
+        if (clickedItem == null) {
+            return;
+        }
+
+        switch (e.getRawSlot()) {
+            case 13: // Execute command
+                player.chat(Objects.requireNonNull(main.getConfig().getString("menu.server-selector-command")));
+                break;
+            default:
+                e.setCancelled(true);
+                break;
+        }
+
+        String serverSelectorItem = main.getConfig().getString("menu.server-selector-item");
+        serverSelectorItem = ChatColor.translateAlternateColorCodes('&', serverSelectorItem);
+
+        if (clickedItem.hasItemMeta() && clickedItem.getItemMeta().hasDisplayName() &&
+                clickedItem.getItemMeta().getDisplayName().equals(serverSelectorItem)) {
+
             e.setCancelled(true);
-
-            Player player = (Player) e.getWhoClicked();
-
-            switch (e.getRawSlot()) {
-                case 13: // Execute command
-                    player.chat(Objects.requireNonNull(main.getConfig().getString("pickaxe-command")));
-                    break;
-
-                default:
-                    return;
-            }
             player.closeInventory();
 
         }

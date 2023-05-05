@@ -2,7 +2,7 @@ name: NautilusLobby
 version: '${project.version}'
 main: com.nautilusmc.nautiluslobby.NautilusLobbyMain
 api-version: 1.19
-authors: [ NautilusMC ]
+authors: [ Kynoq ]
 description: The NautilusMC lobby management plugin
 commands:
   heal:

@@ -1,6 +1,7 @@
 package com.nautilusmc.nautiluslobby.listeners;
 
 import com.nautilusmc.nautiluslobby.NautilusLobbyMain;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,7 +30,7 @@ public class WorldSettingsListener implements Listener {
         if (!main.getConfig().getBoolean("player-can-break")) {
             if (!player.hasPermission("nautiluslobby.break")) {
                 event.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(main.getConfig().getString("cannot-break-block")));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getConfig().getString("cannot-break-block"))));
             }
         }
     }
@@ -41,7 +42,7 @@ public class WorldSettingsListener implements Listener {
         if (!main.getConfig().getBoolean("player-can-place")) {
             if (!player.hasPermission("nautiluslobby.place")) {
                 event.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(main.getConfig().getString("cannot-place-block")));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getConfig().getString("cannot-place-block"))));
             }
         }
     }
@@ -53,7 +54,7 @@ public class WorldSettingsListener implements Listener {
         if (!main.getConfig().getBoolean("player-drop-item")) {
             if (!player.hasPermission("nautiluslobby.drop")) {
                 event.setCancelled(true);
-                player.sendMessage(Objects.requireNonNull(main.getConfig().getString("cannot-drop-item")));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getConfig().getString("cannot-drop-item"))));
             }
         }
     }

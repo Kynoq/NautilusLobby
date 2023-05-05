@@ -13,7 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OnJoinListener implements Listener {
 
@@ -60,16 +61,31 @@ public class OnJoinListener implements Listener {
 
         ItemStack compass = new ItemStack(Material.COMPASS);
         ItemMeta metacompass = compass.getItemMeta();
-        // WARNING : If you change this line, also change in InventoryListener !
-        metacompass.setDisplayName(ChatColor.YELLOW + "Connexion au serveur " + ChatColor.GRAY + "(Clique droit)");
-        metacompass.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Clique Droit pour ouvrir le menu de connexion"));
+
+
+        String menuItemDisplayName = main.getConfig().getString("inventory.compass-display-name");
+        menuItemDisplayName = ChatColor.translateAlternateColorCodes('&', menuItemDisplayName);
+
+        String visibilityItemDisplayName = main.getConfig().getString("inventory.visibility-item-display-name");
+        visibilityItemDisplayName = ChatColor.translateAlternateColorCodes('&', visibilityItemDisplayName);
+
+        metacompass.setDisplayName(menuItemDisplayName);
+        List<String> compassLore = new ArrayList<>();
+        for (String compassLoreLine : main.getConfig().getStringList("inventory.compass-lore")) {
+            compassLore.add(ChatColor.translateAlternateColorCodes('&', compassLoreLine));
+        }
+        metacompass.setLore(compassLore);
         compass.setItemMeta(metacompass);
 
         ItemStack visbilityitem = new ItemStack(Material.LIME_DYE);
         ItemMeta metavisibilityitem = visbilityitem.getItemMeta();
-        // WARNING : If you change this line, also change in InventoryListener !
-        metavisibilityitem.setDisplayName(ChatColor.YELLOW + "Visibilité des joueurs " + ChatColor.GRAY + ChatColor.BOLD + "> " + ChatColor.GREEN + "Visible");
-        metavisibilityitem.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Clique Droit pour masquer les autres joueurs"));
+
+        metavisibilityitem.setDisplayName(visibilityItemDisplayName);
+        List<String> visibilityItemLore = new ArrayList<>();
+        for (String visibilityItemLoreLine : main.getConfig().getStringList("inventory.visibility-item-lore")) {
+            visibilityItemLore.add(ChatColor.translateAlternateColorCodes('&', visibilityItemLoreLine));
+        }
+        metavisibilityitem.setLore(visibilityItemLore);
         visbilityitem.setItemMeta(metavisibilityitem);
 
         player.getInventory().setItem(8, visbilityitem);

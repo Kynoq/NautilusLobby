@@ -1,12 +1,16 @@
 package com.nautilusmc.nautiluslobby.commands;
 
 import com.nautilusmc.nautiluslobby.NautilusLobbyMain;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class SetLobbySpawnCommand implements CommandExecutor {
@@ -28,27 +32,27 @@ public class SetLobbySpawnCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        // Vérifiez que le joueur a la permission d'utiliser cette commande
         if (!player.hasPermission("nautiluslobby.setlobbyspawn")) {
-            player.sendMessage(Objects.requireNonNull(main.getConfig().getString("permission-denied")));
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getConfig().getString("permission-denied"))));
             return true;
         }
 
-        // Obtenez les coordonnées du joueur
         Location location = player.getLocation();
+        FileConfiguration config = main.getConfig();
 
-        // Enregistrez les coordonnées dans la configuration
-        main.getConfig().set("teleport-location.x", location.getX());
-        main.getConfig().set("teleport-location.y", location.getY());
-        main.getConfig().set("teleport-location.z", location.getZ());
-        main.getConfig().set("teleport-location.yaw", location.getYaw());
-        main.getConfig().set("teleport-location.pitch", location.getPitch());
+        config.set("teleport-location.x", location.getX());
+        config.set("teleport-location.y", location.getY());
+        config.set("teleport-location.z", location.getZ());
+        config.set("teleport-location.yaw", location.getYaw());
+        config.set("teleport-location.pitch", location.getPitch());
 
-        // Enregistrez les modifications dans le fichier de configuration
-        main.saveConfig();
+        try {
+            config.save(new File(main.getDataFolder(), "config.yml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        player.sendMessage(Objects.requireNonNull(main.getConfig().getString("lobby-spawn-set")));
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(main.getConfig().getString("lobby-spawn-set"))));
         return true;
     }
-
 }

@@ -27,7 +27,7 @@ public final class NautilusLobbyMain extends JavaPlugin {
 
         // Commands register
         getCommand("heal").setExecutor(new HealCommand(this));
-        getCommand("server").setExecutor(new ServerSelectorCommand());
+        getCommand("server").setExecutor(new ServerSelectorCommand(this));
         getCommand("setlobbyspawn").setExecutor(new SetLobbySpawnCommand(this));
 
         getLogger().info("NautilusLobby started successfully !");
@@ -39,4 +39,5 @@ public final class NautilusLobbyMain extends JavaPlugin {
 
         getLogger().info("NautilusLobby disabled!");
     }
+
 }
