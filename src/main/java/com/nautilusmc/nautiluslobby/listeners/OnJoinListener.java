@@ -50,6 +50,16 @@ public class OnJoinListener implements Listener {
         }
 
         event.setJoinMessage(ChatColor.DARK_GRAY + "[" + ChatColor.GREEN + ChatColor.BOLD + "✔" + ChatColor.DARK_GRAY + "] " + ChatColor.GRAY + player.getName());
+
+
+        // Tablist
+        List<String> headerLines = config.getStringList("tab.header");
+        List<String> footerLines = config.getStringList("tab.footer");
+
+        String header = ChatColor.translateAlternateColorCodes('&', String.join("\n", headerLines));
+        String footer = ChatColor.translateAlternateColorCodes('&', String.join("\n", footerLines));
+
+        event.getPlayer().setPlayerListHeaderFooter(header, footer);
     }
 
     // Setting the default inventory (Clearinv & put default items)
@@ -88,7 +98,9 @@ public class OnJoinListener implements Listener {
         metavisibilityitem.setLore(visibilityItemLore);
         visbilityitem.setItemMeta(metavisibilityitem);
 
-        player.getInventory().setItem(8, visbilityitem);
+        if (main.getConfig().getBoolean("visibility-item")) { //Because feature is now not intergrated
+            player.getInventory().setItem(8, visbilityitem);
+        }
         player.getInventory().setItem(4, compass);
     }
 
