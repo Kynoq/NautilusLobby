@@ -24,6 +24,7 @@ public final class NautilusLobbyMain extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ServerSelectorListener(this), this);
         Bukkit.getPluginManager().registerEvents(new InventoryListener(this), this);
         Bukkit.getPluginManager().registerEvents(new VoidFallListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new CommandBlocker(this), this);
 
         // Commands register
         getCommand("heal").setExecutor(new HealCommand(this));

@@ -2,6 +2,7 @@ package com.nautilusmc.nautiluslobby.listeners;
 
 import com.nautilusmc.nautiluslobby.NautilusLobbyMain;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,10 +11,13 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.Objects;
 
 public class WorldSettingsListener implements Listener {
@@ -107,4 +111,26 @@ public class WorldSettingsListener implements Listener {
     }
 
 
+    public static class CommandBlocker extends JavaPlugin implements Listener {
+
+        @EventHandler
+        public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
+            String command = event.getMessage().split(" ")[0].toLowerCase(); // Obtient la commande entrée par le joueur
+
+            // Obtient les commandes à bloquer de la configuration
+            FileConfiguration config = getConfig();
+            List<String> blockedCommands = config.getStringList("blocked-commands");
+
+            // Vérifie si la commande entrée doit être bloquée
+            if (blockedCommands.contains(command)) {
+                event.setCancelled(true); // Annule l'exécution de la commande
+
+                // Obtient le message personnalisé à partir du fichier de configuration et remplace les codes de couleur
+                String blockedCommandMessage = config.getString("blocked-command-message", "Cette commande est désactivée.");
+                blockedCommandMessage = ChatColor.translateAlternateColorCodes('&', blockedCommandMessage);
+
+                event.getPlayer().sendMessage(blockedCommandMessage); // Envoie le message d'erreur au joueur
+            }
+        }
+    }
 }
