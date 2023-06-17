@@ -1,7 +1,7 @@
 name: NautilusLobby
 version: '${project.version}'
 main: com.nautilusmc.nautiluslobby.NautilusLobbyMain
-api-version: 1.19
+api-version: 1.20
 authors: [ Kynoq ]
 description: The NautilusMC lobby management plugin
 commands:
